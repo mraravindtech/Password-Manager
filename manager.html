@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button#findButton {
+            background-color: #3498db;
+            color: white;
+        }
+
+        button#clearButton {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        p#result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Find Your Passwords</h1>
+    
+    <label for="name">Enter a username or email:</label>
+    <input type="text" id="nameInput" onkeydown="checkEnterKey(event)">
+    <button id="findButton" onclick="findPassword()">Get Password</button>
+    <br>
+    <button id="clearButton" onclick="clearInput()">Clear</button>
+
+    <p id="result"></p>
+
+    <script>
+        const passwordData = {
+            "cyberknight": "ak",
+            "user1": "password1",
+            "user2": "password2",
+            "user3": "password3"
+        };
+
+        function findPassword() {
+            const username = document.getElementById("nameInput").value;
+            const result = document.getElementById("result");
+
+            if (passwordData.hasOwnProperty(username)) {
+                const password = passwordData[username];
+                result.textContent = `Password for ${username} is : ${password}`;
+            } else {
+                result.textContent = `Username not found in the directory.`;
+            }
+        }
+
+        function clearInput() {
+            const input = document.getElementById("nameInput");
+            const result = document.getElementById("result");
+            input.value = "";
+            result.textContent = "";
+        }
+
+        function checkEnterKey(event) {
+            if (event.key === "Enter") {
+                findPassword();
+            }
+        }
+    </script>
+</body>
+</html>
